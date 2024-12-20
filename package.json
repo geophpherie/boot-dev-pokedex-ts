@@ -1,0 +1,28 @@
+{
+  "name": "boot-dev-pokedex-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/main.js",
+    "dev": "npx tsc && node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geophpherie/boot-dev-pokedex-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geophpherie/boot-dev-pokedex-ts/issues"
+  },
+  "homepage": "https://github.com/geophpherie/boot-dev-pokedex-ts#readme",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
