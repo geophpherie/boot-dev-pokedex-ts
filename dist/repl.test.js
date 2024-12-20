@@ -14,6 +14,10 @@ describe.each([
         expected: ["hello", "friend"],
     },
     {
+        input: "HEllO WoRlD",
+        expected: ["hello", "world"],
+    },
+    {
         input: "",
         expected: [],
     }
