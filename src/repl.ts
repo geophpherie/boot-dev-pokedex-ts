@@ -5,9 +5,9 @@ export function cleanInput(input: string): string[] {
 }
 
 export function startREPL(state: State) {
-
 	state.repl.prompt()
-	state.repl.on("line", (input) => {
+
+	state.repl.on("line", async (input) => {
 		const words = cleanInput(input)
 
 		if (words.length == 0) {
@@ -18,9 +18,10 @@ export function startREPL(state: State) {
 			if (command === undefined) {
 				console.log("Unknown command")
 			} else {
-				const error = command.callback(state)
-				if (error !== undefined) {
-					console.log(error)
+				try {
+					await command.callback(state)
+				} catch (e) {
+					console.log(e)
 				}
 			}
 			state.repl.prompt()

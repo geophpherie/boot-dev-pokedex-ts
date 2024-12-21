@@ -1,5 +1,6 @@
 import { createInterface } from "readline";
 import { getCommands } from "./command.js";
+import { PokeAPI } from "./pokeapi.js";
 export function initState() {
     const repl = createInterface({
         input: process.stdin,
@@ -7,5 +8,6 @@ export function initState() {
         prompt: "Pokedex > "
     });
     const commands = getCommands();
-    return { repl: repl, commands: commands };
+    const pokeapi = new PokeAPI();
+    return { repl: repl, commands: commands, pokeapi: pokeapi };
 }

@@ -1,15 +1,21 @@
 import { createInterface, type Interface } from "readline";
 import { getCommands } from "./command.js";
+import { PokeAPI } from "./pokeapi.js";
+import { URL } from "url";
 
 export type CLICommand = {
 	name: string,
 	description: string,
-	callback: (state: State) => void;
+	callback: (state: State) => Promise<void>;
 };
 
 export type State = {
 	repl: Interface,
-	commands: Record<string, CLICommand>
+	commands: Record<string, CLICommand>,
+	pokeapi: PokeAPI,
+	nextLocationsURL?: URL,
+	prevLocationsURL?: URL
+
 }
 
 
@@ -22,5 +28,7 @@ export function initState(): State {
 
 	const commands = getCommands()
 
-	return { repl: repl, commands: commands }
+	const pokeapi = new PokeAPI()
+
+	return { repl: repl, commands: commands, pokeapi: pokeapi }
 }
