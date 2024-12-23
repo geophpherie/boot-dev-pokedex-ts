@@ -19,7 +19,7 @@ export function startREPL(state: State) {
 				console.log("Unknown command")
 			} else {
 				try {
-					await command.callback(state)
+					await command.callback(state, ...words.slice(1))
 				} catch (e) {
 					console.log(e)
 				}

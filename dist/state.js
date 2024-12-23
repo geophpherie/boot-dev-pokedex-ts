@@ -8,6 +8,6 @@ export function initState() {
         prompt: "Pokedex > "
     });
     const commands = getCommands();
-    const pokeapi = new PokeAPI();
+    const pokeapi = new PokeAPI(5000);
     return { repl: repl, commands: commands, pokeapi: pokeapi };
 }

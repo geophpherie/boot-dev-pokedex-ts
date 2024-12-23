@@ -6,7 +6,7 @@ import { URL } from "url";
 export type CLICommand = {
 	name: string,
 	description: string,
-	callback: (state: State) => Promise<void>;
+	callback: (state: State, ...args: string[]) => Promise<void>;
 };
 
 export type State = {
@@ -28,7 +28,7 @@ export function initState(): State {
 
 	const commands = getCommands()
 
-	const pokeapi = new PokeAPI()
+	const pokeapi = new PokeAPI(5000)
 
 	return { repl: repl, commands: commands, pokeapi: pokeapi }
 }
