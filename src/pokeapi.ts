@@ -109,7 +109,7 @@ export interface Pokemon {
 }
 
 export interface PokemonStats {
-	base_state: number
+	base_stat: number
 	stat: {
 		name: string
 		url: string
