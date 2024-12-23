@@ -9,5 +9,5 @@ export function initState() {
     });
     const commands = getCommands();
     const pokeapi = new PokeAPI(5000);
-    return { repl: repl, commands: commands, pokeapi: pokeapi };
+    return { repl: repl, commands: commands, pokeapi: pokeapi, pokedex: new Map() };
 }

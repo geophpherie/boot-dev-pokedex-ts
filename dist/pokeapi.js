@@ -42,4 +42,20 @@ export class PokeAPI {
             return json;
         }).catch(() => { throw new Error("Error reaching location url"); });
     }
+    async fetchPokemon(pokemon) {
+        let url = new URL(`pokemon/${pokemon}`, PokeAPI.baseURL);
+        const cachedResult = this.#cache.get(url.toString());
+        if (cachedResult) {
+            console.log("Cache hit!");
+            return cachedResult;
+        }
+        return fetch(url).then(async (resp) => {
+            if (!resp.ok) {
+                throw new Error(`HTTP Error! Status: ${resp.status}`);
+            }
+            const json = await resp.json();
+            this.#cache.add(url.toString(), json);
+            return json;
+        }).catch(() => { throw new Error("Error reaching location url"); });
+    }
 }

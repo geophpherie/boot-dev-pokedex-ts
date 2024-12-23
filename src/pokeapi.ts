@@ -54,6 +54,26 @@ export class PokeAPI {
 			return json
 		}).catch(() => { throw new Error("Error reaching location url") })
 	}
+
+	async fetchPokemon(pokemon: string): Promise<Pokemon> {
+		let url = new URL(`pokemon/${pokemon}`, PokeAPI.baseURL)
+		const cachedResult = this.#cache.get<Pokemon>(url.toString())
+		if (cachedResult) {
+			console.log("Cache hit!")
+			return cachedResult
+		}
+
+		return fetch(url).then(async (resp) => {
+			if (!resp.ok) {
+				throw new Error(`HTTP Error! Status: ${resp.status}`)
+			}
+
+			const json = await resp.json()
+			this.#cache.add<Pokemon>(url.toString(), json)
+
+			return json
+		}).catch(() => { throw new Error("Error reaching location url") })
+	}
 }
 
 export interface ShallowLocations {
@@ -71,15 +91,33 @@ export interface Location {
 export interface LocationArea {
 	id: number
 	name: string
-	pokemon_encounters: Array<ShallowPokemon>
+	pokemon_encounters: Array<{ pokemon: LocationPokemon }>
 }
 
-export interface ShallowPokemon {
-	pokemon: Pokemon
+export interface LocationPokemon {
+	name: string
+	url: string
 }
-
 
 export interface Pokemon {
 	name: string
-	url: string
+	base_experience: number
+	height: number
+	weight: number
+	stats: Array<PokemonStats>
+	types: Array<PokemonTypes>
+}
+
+export interface PokemonStats {
+	base_state: number
+	stat: {
+		name: string
+		url: string
+	}
+}
+export interface PokemonTypes {
+	type: {
+		name: string
+		url: string
+	}
 }
